@@ -54,7 +54,7 @@
 
 #### Handle Password
 
-- [] UserSchema.pre('save') - hook
+- [x] UserSchema.pre('save') - hook
 - this points to User
 - bcrypt.genSalt - number of rounds
 - bcrypt.hash
