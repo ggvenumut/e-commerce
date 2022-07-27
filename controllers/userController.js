@@ -23,14 +23,37 @@ const getSingleUser = async (req, res) => {
 };
 
 const showCurrentUser = async (req, res) => {
-  res.status(200).json({ message: "show Current User" });
+  res.status(200).json({ user: req.user });
 };
 
 const updateUser = async (req, res) => {
-  res.status(200).json({ message: "update User" });
+  const { email, name } = req.body;
+  if (!email || !name) {
+    throw new Error("Please provide all values");
+  }
+  const user = await User.findOne({ _id: req.user.userID });
+  user.email = email;
+  user.name = name;
+
+  await user.save();
+  const tokenUser = createTokenUser(user);
+  attachCookiesToResponse({ res, user: tokenUser });
+  res.status(200).json({ user: tokenUser });
 };
 const updateUserPassword = async (req, res) => {
-  res.status(200).json({ message: "update User Password" });
+  const { oldPassword, newPassword } = req.body;
+  if (!oldPassword || !newPassword) {
+    throw new Error("Please provide both values");
+  }
+  const user = await User.findOne({ _id: req.user.userID });
+  const isPasswordCorrect = await user.comparePassword(oldPassword);
+  if (!isPasswordCorrect) {
+    throw new Error("Invalid password");
+  }
+
+  user.password = newPassword;
+  await user.save();
+  res.status(200).json({ msg: "Success! Password Updated." });
 };
 
 export {
