@@ -24,13 +24,9 @@
 
 #### User Model
 
-- [] create models folder and User.js file
-- [] create schema with name,email, password (all type:String)
-- [] export mongoose model
-
-#### Validator Package
-
-- [Validator](https://www.npmjs.com/package/validator)
+- [x] create models folder and User.js file
+- [x] create schema with name,email, password (all type:String)
+- [x] export mongoose model
 
 #### Auth Routes Structure
 
