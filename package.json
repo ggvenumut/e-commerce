@@ -1,0 +1,16 @@
+{
+    "name": "auth-workflow",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "server": "nodemon server"
+    },
+    "main": "server.js",
+    "repository": "https://github.com/ggvenumut/auth-workflow.git",
+    "author": "umut guven <ggvenumut@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "express": "^4.18.1",
+        "nodemon": "^2.0.19"
+    }
+}
