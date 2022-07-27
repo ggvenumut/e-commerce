@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import { createTokenUser, attachCookiesToResponse } from "../utils/index.js";
 
 const register = async (req, res) => {
+  const users = await User.find({ role: "user" }).select("-password");
   const { name, email, password } = req.body;
 
   const emailAlreadyExists = await User.findOne({ email });
