@@ -19,14 +19,26 @@ const register = async (req, res) => {
     role,
   });
   const tokenUser = createTokenUser(user);
-  console.log(tokenUser);
   attachCookiesToResponse({ res, user: tokenUser });
   res.status(200).json({ user: tokenUser });
 };
 const login = async (req, res) => {
-  res.status(200).json({
-    msg: "login page",
-  });
+  const { email, password } = req.body;
+  if (!email || !password) {
+    throw new Error("please enter a valid email or password");
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error("no user");
+  }
+
+  const isPasswordCorrect = await user.comparePassword(password);
+  if (!isPasswordCorrect) {
+    throw new Error("Invalid password");
+  }
+  const tokenUser = createTokenUser(user);
+  attachCookiesToResponse({ res, user: tokenUser });
+  res.status(200).json({ user: tokenUser });
 };
 const logout = async (req, res) => {
   res.status(200).json({
