@@ -9,6 +9,7 @@ const app = express();
 // REST OF THE PACKAGES
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import fileUpload from "express-fileupload";
 //DATABASE
 import connectDatabase from "./connectDB/connect.js";
 //  ROUTERS
@@ -23,10 +24,12 @@ import errorHandler from "./middleware/errorHandler.js";
 app.get("/", (req, res) => {
   res.send("auth-workflow");
 });
+
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
-app.use(morgan("tiny"));
 
+app.use(morgan("tiny"));
+app.use(fileUpload());
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/product", productRoutes);

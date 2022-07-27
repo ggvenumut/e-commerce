@@ -1,4 +1,8 @@
 import Product from "../models/Product.js";
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const createProduct = async (req, res) => {
   req.body.user = req.user.userID;
@@ -48,7 +52,24 @@ const deleteProduct = async (req, res) => {
   res.status(200).json({ msg: "Success! Product removed." });
 };
 const uploadImage = async (req, res) => {
-  res.send("uploadImage ");
+  if (!req.files) {
+    throw new Error("No file uploaded");
+  }
+  const productImage = req.files.image;
+  if (!productImage.mimetype.startsWith("image")) {
+    throw new Error("Please Upload Image");
+  }
+  const maxSize = 1024 * 1024;
+  if (productImage.size > maxSize) {
+    throw new Error("Please upload image smaller than 1MB");
+  }
+  console.log(__dirname);
+  const imagePath = path.join(
+    __dirname,
+    "../uploads/" + `${productImage.name}`
+  );
+  await productImage.mv(imagePath);
+  res.status(200).json({ image: `/uploads/${productImage.name}` });
 };
 export {
   createProduct,
