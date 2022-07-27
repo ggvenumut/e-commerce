@@ -6,6 +6,8 @@ import "express-async-errors";
 // EXPRESS
 import express from "express";
 const app = express();
+// REST OF THE PACKAGES
+import morgan from "morgan";
 
 //DATABASE
 import connectDatabase from "./connectDB/connect.js";
@@ -20,6 +22,7 @@ import errorHandler from "./middleware/errorHandler.js";
 // ---
 
 app.use(express.json());
+app.use(morgan("tiny"));
 
 app.use(notFound);
 app.use(errorHandler);

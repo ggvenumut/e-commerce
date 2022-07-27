@@ -13,14 +13,12 @@
 
 #### Basic Routes and Middleware
 
-- [] setup / GET Route
-- [] setup express.json() middleware
-- [] setup 404 and errorHandler middleware
-- [] import 'express-async-errors' package
+- [x] setup / GET Route
+- [x] setup express.json() middleware
+- [x] setup 404 and errorHandler middleware
+- [x] import 'express-async-errors' package
 
-#### 404 vs ErrorHandler Middleware
-
-#### Morgan Pacakge
+- [x] import Morgan package
 
 - [Morgan Package](https://www.npmjs.com/package/morgan)
 
