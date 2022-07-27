@@ -6,16 +6,46 @@ const createProduct = async (req, res) => {
   res.status(200).json({ product });
 };
 const getAllProducts = async (req, res) => {
-  res.send("get All Products");
+  const products = await Product.find({});
+
+  res.status(200).json({ products, count: products.length });
 };
 const getSingleProduct = async (req, res) => {
-  res.send("getSingleProduct ");
+  const { id: productId } = req.params;
+
+  const product = await Product.findOne({ _id: productId });
+
+  if (!product) {
+    throw new Error(`No product with id : ${productId}`);
+  }
+
+  res.status(200).json({ product });
 };
 const updateProduct = async (req, res) => {
-  res.send("updateProduct ");
+  const { id: productId } = req.params;
+
+  const product = await Product.findOneAndUpdate({ _id: productId }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (!product) {
+    throw new Error(`No product with id : ${productId}`);
+  }
+
+  res.status(200).json({ product });
 };
 const deleteProduct = async (req, res) => {
-  res.send("deleteProduct ");
+  const { id: productId } = req.params;
+
+  const product = await Product.findOne({ _id: productId });
+
+  if (!product) {
+    throw new Error(`No product with id : ${productId}`);
+  }
+
+  await product.remove();
+  res.status(200).json({ msg: "Success! Product removed." });
 };
 const uploadImage = async (req, res) => {
   res.send("uploadImage ");
