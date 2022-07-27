@@ -12,17 +12,19 @@ import morgan from "morgan";
 //DATABASE
 import connectDatabase from "./connectDB/connect.js";
 //  ROUTERS
-app.get("/", (req, res) => {
-  res.send("auth-workflow");
-});
+import authRoutes from "./routes/authRoutes.js";
 // MIDDLEWARE
 import notFound from "./middleware/notFound.js";
 import errorHandler from "./middleware/errorHandler.js";
 
 // ---
-
+app.get("/", (req, res) => {
+  res.send("auth-workflow");
+});
 app.use(express.json());
 app.use(morgan("tiny"));
+
+app.use("/api/v1/auth", authRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
