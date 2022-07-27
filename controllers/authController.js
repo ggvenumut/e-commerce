@@ -1,4 +1,5 @@
 import User from "../models/User.js";
+import { createTokenUser, attachCookiesToResponse } from "../utils/index.js";
 
 const register = async (req, res) => {
   const { name, email, password } = req.body;
@@ -17,8 +18,10 @@ const register = async (req, res) => {
     password,
     role,
   });
-
-  res.status(200).json({ data: user });
+  const tokenUser = createTokenUser(user);
+  console.log(tokenUser);
+  attachCookiesToResponse({ res, user: tokenUser });
+  res.status(200).json({ user: tokenUser });
 };
 const login = async (req, res) => {
   res.status(200).json({

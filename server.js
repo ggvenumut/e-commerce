@@ -8,7 +8,7 @@ import express from "express";
 const app = express();
 // REST OF THE PACKAGES
 import morgan from "morgan";
-
+import cookieParser from "cookie-parser";
 //DATABASE
 import connectDatabase from "./connectDB/connect.js";
 //  ROUTERS
@@ -22,6 +22,7 @@ app.get("/", (req, res) => {
   res.send("auth-workflow");
 });
 app.use(express.json());
+app.use(cookieParser(process.env.JWT_SECRET));
 app.use(morgan("tiny"));
 
 app.use("/api/v1/auth", authRoutes);
