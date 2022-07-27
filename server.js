@@ -13,6 +13,7 @@ import cookieParser from "cookie-parser";
 import connectDatabase from "./connectDB/connect.js";
 //  ROUTERS
 import authRoutes from "./routes/authRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 // MIDDLEWARE
 import notFound from "./middleware/notFound.js";
 import errorHandler from "./middleware/errorHandler.js";
@@ -26,6 +27,7 @@ app.use(cookieParser(process.env.JWT_SECRET));
 app.use(morgan("tiny"));
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/user", userRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
