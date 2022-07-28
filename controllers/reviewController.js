@@ -59,7 +59,7 @@ const deleteReview = async (req, res) => {
   const review = await Review.findOne({ _id: reviewId });
 
   if (!review) {
-    throw new CustomError.NotFoundError(`No review with id ${reviewId}`);
+    throw new Error(`No review with id ${reviewId}`);
   }
 
   checkPermissions(req.user, review.user);
