@@ -63,7 +63,6 @@ const uploadImage = async (req, res) => {
   if (productImage.size > maxSize) {
     throw new Error("Please upload image smaller than 1MB");
   }
-  console.log(__dirname);
   const imagePath = path.join(
     __dirname,
     "../uploads/" + `${productImage.name}`
