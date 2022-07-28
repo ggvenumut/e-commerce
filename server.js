@@ -16,6 +16,7 @@ import connectDatabase from "./connectDB/connect.js";
 import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import reviewRoutes from "./routes/reviewRoutes.js";
 // MIDDLEWARE
 import notFound from "./middleware/notFound.js";
 import errorHandler from "./middleware/errorHandler.js";
@@ -33,6 +34,7 @@ app.use(fileUpload());
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/product", productRoutes);
+app.use("/api/v1/review", reviewRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
