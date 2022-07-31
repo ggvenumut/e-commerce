@@ -43,11 +43,11 @@ app.use(cookieParser(process.env.JWT_SECRET));
 app.use(morgan("tiny"));
 app.use(express.static("./public"));
 app.use(fileUpload());
-app.use("/auth", authRoutes);
-app.use("/user", userRoutes);
-app.use("/product", productRoutes);
-app.use("/review", reviewRoutes);
-app.use("/order", orderRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/product", productRoutes);
+app.use("/api/v1/review", reviewRoutes);
+app.use("/api/v1/order", orderRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
