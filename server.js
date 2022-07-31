@@ -10,6 +10,11 @@ const app = express();
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import fileUpload from "express-fileupload";
+import rateLimit from "express-rate-limit";
+import helmet from "helmet";
+import xss from "xss-clean";
+import cors from "cors";
+
 //DATABASE
 import connectDatabase from "./connectDB/connect.js";
 //  ROUTERS
@@ -22,15 +27,21 @@ import orderRoutes from "./routes/orderRoutes.js";
 import notFound from "./middleware/notFound.js";
 import errorHandler from "./middleware/errorHandler.js";
 
-// ---
-app.get("/", (req, res) => {
-  res.send("auth-workflow");
-});
+app.set("trust proxy", 1);
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 60,
+  })
+);
+app.use(helmet());
+app.use(cors());
+app.use(xss());
 
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
-
 app.use(morgan("tiny"));
+
 app.use(fileUpload());
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", userRoutes);
